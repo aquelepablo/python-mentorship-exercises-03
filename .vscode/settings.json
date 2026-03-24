@@ -8,7 +8,5 @@
       "source.organizeImports": "explicit"
     }
   },
-  "ruff.nativeServer": "on",
-  "ruff.lint.enable": true,
-  "ruff.format.args": []
+  "ruff.lint.enable": true
 }
