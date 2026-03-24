@@ -11,7 +11,6 @@ atual; se for, subtraia o valor da nota e conte uma cédula. Quando não for mai
 possível usar a nota atual, passe para a próxima nota menor.
 """
 
-# TODO: implementar exercício
 from time import sleep
 
 from shared.text import normalize_number
@@ -27,12 +26,7 @@ try:
 
     # Variables
     remaining_value = 0
-    withdraw_bills = {
-        50: 0,
-        20: 0,
-        10: 0,
-        1: 0
-    }
+    withdraw_bills = {50: 0, 20: 0, 10: 0, 1: 0}
 
     # Inputs
     print("Bem vindo ao ATM Python")
@@ -51,36 +45,37 @@ try:
     else:
         try:
             withdraw = int(withdraw)
+            remaining_value = withdraw
+
+            while remaining_value > 0:
+                if remaining_value // BILL_OF_50 > 0:
+                    bill = BILL_OF_50
+                elif remaining_value // BILL_OF_20 > 0:
+                    bill = BILL_OF_20
+                elif remaining_value // BILL_OF_10 > 0:
+                    bill = BILL_OF_10
+                else:
+                    bill = BILL_OF_01
+
+                withdraw_bills[bill] = remaining_value // bill
+                remaining_value -= withdraw_bills[bill] * bill
+
+            # Output
+            print("Calculando notas...")
+            sleep(1)
+            print("Saque realizado com sucesso. Retire seu dinheiro abaixo:")
+            sleep(0.2)
+            for bill in withdraw_bills:
+                if withdraw_bills[bill] > 0:
+                    sleep(0.2)
+                    print(f"NOTAS DE €{bill}: {withdraw_bills[bill]}")
+            sleep(0.2)
+            print(f"Saque de €{withdraw} finalizado.")
+            sleep(0.2)
+            print("Volte sempre")
+
         except ValueError:
             print("É preciso informar um número inteiro. Esse ATM não possui cêntimos.")
-
-        remaining_value = withdraw
-        while remaining_value > 0:
-            if remaining_value // BILL_OF_50 > 0:
-                bill = BILL_OF_50
-            elif remaining_value // BILL_OF_20 > 0:
-                bill = BILL_OF_20
-            elif remaining_value // BILL_OF_10 > 0:
-                bill = BILL_OF_10
-            else:
-                bill = BILL_OF_01
-
-            withdraw_bills[bill] = remaining_value // bill
-            remaining_value -= withdraw_bills[bill] * bill
-
-    # Output
-        print("Calculando notas...")
-        sleep(1)
-        print("Saque realizado com sucesso. Retire seu dinheiro abaixo:")
-        sleep(0.2)
-        for bill in withdraw_bills.keys():
-            if withdraw_bills[bill] > 0:
-                sleep(0.2)
-                print(f"NOTAS DE €{bill}: {withdraw_bills[bill]}")
-        sleep(0.2)
-        print(f"Saque de €{withdraw} finalizado.")
-        sleep(0.2)
-        print("Volte sempre")
 
 
 except KeyboardInterrupt:
