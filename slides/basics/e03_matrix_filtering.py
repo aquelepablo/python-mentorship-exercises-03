@@ -25,7 +25,7 @@ try:
 
     # Output
     print(f"Dada a lista {MATRIX}")
-    print(f"Esses são os número múltiplos de 3 e maiores que 10:")
+    print("Esses são os número múltiplos de 3 e maiores que 10:")
     print(selected_numbers)
 
 
